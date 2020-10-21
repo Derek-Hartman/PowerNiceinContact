@@ -3,11 +3,11 @@
     Creates a new inContact Agent
 
 .EXAMPLE
-    New-NiceinContactAgent -FirstName "xxxx" -LastName "xxxxxx" -TeamID "xxx" -EmailAddress "xxxx" -TimeZone "(GMT-05:00) Eastern Time (US & Canada)" -Country "US" -State "xx" -City "xxx" -UserType "xxx" -NTLoginName "xxxx" -Token $Token
+    New-NiceinContactAgent -FirstName "xxxx" -LastName "xxxxxx" -TeamID "xxx" -EmailAddress "xxxx" -Username "xxxx" -TimeZone "(GMT-05:00) Eastern Time (US & Canada)" -Country "US" -State "xx" -City "xxx" -UserType "xxx" -NTLoginName "xxxx" -Token $Token
 
 .NOTES
     Modified by: Derek Hartman
-    Date: 11/14/2019
+    Date: 10/21/2020
 
 #>
 
@@ -35,6 +35,11 @@ Function New-NiceinContactAgent {
             ValueFromPipeline = $True,
             HelpMessage = "Enter Email Address")]
         [string[]]$EmailAddress,
+
+        [Parameter(Mandatory = $True,
+            ValueFromPipeline = $True,
+            HelpMessage = "Enter Username")]
+        [string[]]$Username,
 
         [Parameter(Mandatory = $True,
             ValueFromPipeline = $True,
@@ -87,14 +92,14 @@ Function New-NiceinContactAgent {
     $Body += @{"lastName" = "$LastName"}
     $Body += @{"teamId" = "$TeamID"}
     $Body += @{"emailAddress" = "$EmailAddress"}
-    $Body += @{"userName" = "$EmailAddress"}
+    $Body += @{"userName" = "$Username"}
     $Body += @{"profileId" = 208}
     $Body += @{"timeZone" = "$TimeZone"}
     $Body += @{"country" = "$Country"}
     $Body += @{"state" = "$State"}
     $Body += @{"city" = "$City"}
     $Body += @{"userType" = "$UserType"}
-    $Body += @{"federatedId" = "$EmailAddress"}
+    $Body += @{"federatedId" = "$Username"}
     $Body += @{"custom1" = "$NTLoginName"}
     $Body += @{"ntLoginName" = "$NTLoginName"}
     $Body += @{"chatRefusalTimeout" = 60}
